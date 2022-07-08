@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[我的第一篇博文]]></title>
+      <url>/2022/07/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/</url>
+      <content type="html"><![CDATA[<h1 id="tslib"><a href="#tslib" class="headerlink" title="tslib"></a>tslib</h1><p>This is a runtime library for <a href="http://www.typescriptlang.org/">TypeScript</a> that contains all of the TypeScript helper functions.</p>
+<p>This library is primarily used by the <code>--importHelpers</code> flag in TypeScript.<br>When using <code>--importHelpers</code>, a module that uses helper functions like <code>__extends</code> and <code>__assign</code> in the following emitted file:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __assign = (<span class="variable language_">this</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">__assign</span>) || <span class="title class_">Object</span>.<span class="property">assign</span> || <span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> s, i = <span class="number">1</span>, n = <span class="variable language_">arguments</span>.<span class="property">length</span>; i &lt; n; i++) &#123;</span><br><span class="line">        s = <span class="variable language_">arguments</span>[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> p <span class="keyword">in</span> s) <span class="keyword">if</span> (<span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">hasOwnProperty</span>.<span class="title function_">call</span>(s, p))</span><br><span class="line">            t[p] = s[p];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">x</span> = &#123;&#125;;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">y</span> = <span class="title function_">__assign</span>(&#123;&#125;, <span class="built_in">exports</span>.<span class="property">x</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>will instead be emitted as something like the following:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tslib_1 = <span class="built_in">require</span>(<span class="string">&quot;tslib&quot;</span>);</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">x</span> = &#123;&#125;;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">y</span> = tslib_1.<span class="title function_">__assign</span>(&#123;&#125;, <span class="built_in">exports</span>.<span class="property">x</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Because this can avoid duplicate declarations of things like <code>__extends</code>, <code>__assign</code>, etc., this means delivering users smaller files on average, as well as less runtime overhead.<br>For optimized bundles with TypeScript, you should absolutely consider using <code>tslib</code> and <code>--importHelpers</code>.</p>
+<h1 id="Installing"><a href="#Installing" class="headerlink" title="Installing"></a>Installing</h1><p>For the latest stable version, run:</p>
+<h2 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TypeScript 3.9.2 or later</span></span><br><span class="line">npm install tslib</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 3.8.4 or earlier</span></span><br><span class="line">npm install tslib@^1</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 2.3.2 or earlier</span></span><br><span class="line">npm install tslib@1.6.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TypeScript 3.9.2 or later</span></span><br><span class="line">yarn add tslib</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 3.8.4 or earlier</span></span><br><span class="line">yarn add tslib@^1</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 2.3.2 or earlier</span></span><br><span class="line">yarn add tslib@1.6.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="bower"><a href="#bower" class="headerlink" title="bower"></a>bower</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TypeScript 3.9.2 or later</span></span><br><span class="line">bower install tslib</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 3.8.4 or earlier</span></span><br><span class="line">bower install tslib@^1</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 2.3.2 or earlier</span></span><br><span class="line">bower install tslib@1.6.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="JSPM"><a href="#JSPM" class="headerlink" title="JSPM"></a>JSPM</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TypeScript 3.9.2 or later</span></span><br><span class="line">jspm install tslib</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 3.8.4 or earlier</span></span><br><span class="line">jspm install tslib@^1</span><br><span class="line"></span><br><span class="line"><span class="comment"># TypeScript 2.3.2 or earlier</span></span><br><span class="line">jspm install tslib@1.6.1</span><br></pre></td></tr></table></figure>
+
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><p>Set the <code>importHelpers</code> compiler option on the command line:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc --importHelpers file.ts</span><br></pre></td></tr></table></figure>
+
+<p>or in your tsconfig.json:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;importHelpers&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="For-bower-and-JSPM-users"><a href="#For-bower-and-JSPM-users" class="headerlink" title="For bower and JSPM users"></a>For bower and JSPM users</h4><p>You will need to add a <code>paths</code> mapping for <code>tslib</code>, e.g. For Bower users:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;amd&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;importHelpers&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;tslib&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;bower_components/tslib/tslib.d.ts&quot;</span><span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>For JSPM users:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;system&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;importHelpers&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;tslib&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;jspm_packages/npm/tslib@2.x.y/tslib.d.ts&quot;</span><span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><ul>
+<li>Choose your new version number</li>
+<li>Set it in <code>package.json</code> and <code>bower.json</code></li>
+<li>Create a tag: <code>git tag [version]</code></li>
+<li>Push the tag: <code>git push --tags</code></li>
+<li>Create a <a href="https://github.com/microsoft/tslib/releases">release in GitHub</a></li>
+<li>Run the <a href="https://github.com/microsoft/tslib/actions?query=workflow:%22Publish+to+NPM%22">publish to npm</a> workflow</li>
+</ul>
+<p>Done.</p>
+<h1 id="Contribute"><a href="#Contribute" class="headerlink" title="Contribute"></a>Contribute</h1><p>There are many ways to <a href="https://github.com/Microsoft/TypeScript/blob/master/CONTRIBUTING.md">contribute</a> to TypeScript.</p>
+<ul>
+<li><a href="https://github.com/Microsoft/TypeScript/issues">Submit bugs</a> and help us verify fixes as they are checked in.</li>
+<li>Review the <a href="https://github.com/Microsoft/TypeScript/pulls">source code changes</a>.</li>
+<li>Engage with other TypeScript users and developers on <a href="http://stackoverflow.com/questions/tagged/typescript">StackOverflow</a>.</li>
+<li>Join the <a href="http://twitter.com/#!/search/realtime/%23typescript">#typescript</a> discussion on Twitter.</li>
+<li><a href="https://github.com/Microsoft/TypeScript/blob/master/CONTRIBUTING.md">Contribute bug fixes</a>.</li>
+</ul>
+<h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><ul>
+<li><a href="http://www.typescriptlang.org/Tutorial">Quick tutorial</a></li>
+<li><a href="http://www.typescriptlang.org/Handbook">Programming handbook</a></li>
+<li><a href="http://www.typescriptlang.org/">Homepage</a></li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2022/07/07/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
+</search>
