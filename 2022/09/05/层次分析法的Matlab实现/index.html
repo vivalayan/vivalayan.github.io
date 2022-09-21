@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>层次分析法的Matlab实现 | K4semuffin</title><meta name="keywords" content="MATLAB,数学建模"><meta name="author" content="Young"><meta name="copyright" content="Young"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="利用Matlab对该模型进行了算法上的实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="层次分析法的Matlab实现">
+<meta property="og:url" content="https://k4se.top/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95%E7%9A%84Matlab%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="K4semuffin">
+<meta property="og:description" content="利用Matlab对该模型进行了算法上的实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080">
+<meta property="article:published_time" content="2022-09-05T12:32:19.000Z">
+<meta property="article:modified_time" content="2022-09-21T16:33:12.812Z">
+<meta property="article:author" content="Young">
+<meta property="article:tag" content="MATLAB">
+<meta property="article:tag" content="数学建模">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080"><link rel="shortcut icon" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDQ4IDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik00IDExTDExIDRMMTggMTFINFoiIHN0cm9rZT0iIzMzMyIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMzAgMTFMMzcgNEw0NCAxMUgzMFoiIHN0cm9rZT0iIzMzMyIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNNDQgNDRWMjZINDBWMTdIMzRWMjZIMjhWMjFMMjQgMTdMMjAgMjFWMjZIMTRWMTdIOFYyNkg0VjQ0SDE4VjQwQzE4IDM2LjY4NjMgMjAuNjg2MyAzNCAyNCAzNEMyNy4zMTM3IDM0IDMwIDM2LjY4NjMgMzAgNDBWNDRINDRaIiBmaWxsPSJub25lIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHJlY3QgeD0iNyIgeT0iMTEiIHdpZHRoPSI4IiBoZWlnaHQ9IjYiIHN0cm9rZT0iIzMzMyIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cmVjdCB4PSIzMyIgeT0iMTEiIHdpZHRoPSI4IiBoZWlnaHQ9IjYiIHN0cm9rZT0iIzMzMyIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4="><link rel="canonical" href="https://k4se.top/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95%E7%9A%84Matlab%E5%AE%9E%E7%8E%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '层次分析法的Matlab实现',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-22 00:33:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/mycss.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-clock/lib/clock.min.css" /><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img1.baidu.com/it/u=1960292808,1761809160&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=500" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">K4semuffin</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">层次分析法的Matlab实现</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-05T12:32:19.000Z" title="发表于 2022-09-05 20:32:19">2022-09-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-21T16:33:12.812Z" title="更新于 2022-09-22 00:33:12">2022-09-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">数学建模</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="层次分析法的Matlab实现"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container">
+
+<style>
+#web_bg{
+  background: url(https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080)!important;
+  /*重新定义background会导致原有定位属性失效，所以也需要再声明一次加权的定位属性*/
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+</style>
+
+
+<h1 id="层次分析法的matlab实现"><a class="markdownIt-Anchor" href="#层次分析法的matlab实现"></a> 层次分析法的Matlab实现</h1>
+<p><em>注意：在论文写作中，应该先对判断矩阵进行一致性检验，然后再计算权重，因为只有判断矩阵通过了一致性检验，其权重才是有意义的。在下面的代码中，我们先计算了权重，然后再进行了一致性检验，这是为了顺应计算过程，事实上在逻辑上是说不过去的。 因此大家自己写论文中如果用到了层次分析法，一定要先对判断矩阵进行一致性检验。 而且要说明的是，只有非一致矩阵的判断矩阵才需要进行一致性检验。如果你的判断矩阵本身就是一个一致矩阵，那么就没有必要进行一致性检验。</em></p>
+<h2 id="输入判断矩阵"><a class="markdownIt-Anchor" href="#输入判断矩阵"></a> 输入判断矩阵</h2>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 输入判断矩阵</span></span><br><span class="line">clear;</span><br><span class="line">clc;</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;请输入判断矩阵A： &#x27;</span>)</span><br><span class="line"><span class="comment">% A = input(&#x27;判断矩阵A=&#x27;)</span></span><br><span class="line">A =[<span class="number">1</span> <span class="number">1</span> <span class="number">4</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">3</span>;</span><br><span class="line"> <span class="number">1</span> <span class="number">1</span> <span class="number">4</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">3</span>;</span><br><span class="line"> <span class="number">1</span>/<span class="number">4</span> <span class="number">1</span>/<span class="number">4</span> <span class="number">1</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">1</span>/<span class="number">2</span>;</span><br><span class="line"> <span class="number">3</span> <span class="number">3</span> <span class="number">3</span> <span class="number">1</span> <span class="number">3</span>;</span><br><span class="line"> <span class="number">1</span>/<span class="number">3</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">2</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">1</span>]</span><br><span class="line"><span class="comment">% matlab矩阵有两种写法，可以直接写到一行:</span></span><br><span class="line"><span class="comment">% [1 1 4 1/3 3;1 1 4 1/3 3;1/4 1/4 1 1/3 1/2;3 3 3 1 3;1/3 1/3 2 1/3 1]</span></span><br><span class="line"><span class="comment">% 也可以写成多行:</span></span><br><span class="line">[<span class="number">1</span> <span class="number">1</span> <span class="number">4</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">3</span>;</span><br><span class="line"> <span class="number">1</span> <span class="number">1</span> <span class="number">4</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">3</span>;</span><br><span class="line"> <span class="number">1</span>/<span class="number">4</span> <span class="number">1</span>/<span class="number">4</span> <span class="number">1</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">1</span>/<span class="number">2</span>;</span><br><span class="line"> <span class="number">3</span> <span class="number">3</span> <span class="number">3</span> <span class="number">1</span> <span class="number">3</span>;</span><br><span class="line"> <span class="number">1</span>/<span class="number">3</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">2</span> <span class="number">1</span>/<span class="number">3</span> <span class="number">1</span>]</span><br><span class="line"><span class="comment">% 两行之间以分号结尾（最后一行的分号可加可不加），同行元素之间以空格（或者逗号）分开。</span></span><br></pre></td></tr></table></figure>
+<h2 id="算术平均法求权重"><a class="markdownIt-Anchor" href="#算术平均法求权重"></a> 算术平均法求权重</h2>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 方法1：算术平均法求权重</span></span><br><span class="line"><span class="comment">% 第一步：将判断矩阵按照列归一化（每一个元素除以其所在列的和）</span></span><br><span class="line">Sum_A = sum(A)</span><br><span class="line"></span><br><span class="line">[n,n] = <span class="built_in">size</span>(A)  <span class="comment">% 也可以写成n = size(A,1)</span></span><br><span class="line"><span class="comment">% 因为我们的判断矩阵A是一个方阵，所以这里的r和c相同，我们可以就用同一个字母n表示</span></span><br><span class="line">SUM_A = <span class="built_in">repmat</span>(Sum_A,n,<span class="number">1</span>)   <span class="comment">%repeat matrix的缩写</span></span><br><span class="line"><span class="comment">% 另外一种替代的方法如下：</span></span><br><span class="line">    SUM_A = [];</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n   <span class="comment">%循环哦，这一行后面不能加冒号（和Python不同），这里表示循环n次</span></span><br><span class="line">        SUM_A = [SUM_A; Sum_A]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">clc;A</span><br><span class="line">SUM_A</span><br><span class="line">Stand_A = A ./ SUM_A</span><br><span class="line"><span class="comment">% 这里我们直接将两个矩阵对应的元素相除即可</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 第二步：将归一化的各列相加(按行求和)</span></span><br><span class="line">sum(Stand_A,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">% 第三步：将相加后得到的向量中每个元素除以n即可得到权重向量</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;算术平均法求权重的结果为：&#x27;</span>);</span><br><span class="line"><span class="built_in">disp</span>(sum(Stand_A,<span class="number">2</span>) / n)</span><br><span class="line"><span class="comment">% 首先对标准化后的矩阵按照行求和，得到一个列向量</span></span><br><span class="line"><span class="comment">% 然后再将这个列向量的每个元素同时除以n即可（注意这里也可以用./哦）</span></span><br></pre></td></tr></table></figure>
+<h2 id="几何平均法求权重"><a class="markdownIt-Anchor" href="#几何平均法求权重"></a> 几何平均法求权重</h2>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 方法2：几何平均法求权重</span></span><br><span class="line"><span class="comment">% 第一步：将A的元素按照行相乘得到一个新的列向量</span></span><br><span class="line">clc;A</span><br><span class="line">Prduct_A = prod(A,<span class="number">2</span>)</span><br><span class="line"><span class="comment">% prod函数和sum函数类似，一个用于乘，一个用于加  dim = 2 维度是行</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 第二步：将新的向量的每个分量开n次方</span></span><br><span class="line">Prduct_n_A = Prduct_A .^ (<span class="number">1</span>/n)</span><br><span class="line"><span class="comment">% 这里对每个元素进行乘方操作，因此要加.号哦。  ^符号表示乘方哦  这里是开n次方，所以我们等价求1/n次方</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 第三步：对该列向量进行归一化即可得到权重向量</span></span><br><span class="line"><span class="comment">% 将这个列向量中的每一个元素除以这一个向量的和即可</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;几何平均法求权重的结果为：&#x27;</span>);</span><br><span class="line"><span class="built_in">disp</span>(Prduct_n_A ./ sum(Prduct_n_A))</span><br></pre></td></tr></table></figure>
+<h2 id="特征值法求权重"><a class="markdownIt-Anchor" href="#特征值法求权重"></a> 特征值法求权重</h2>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 方法3：特征值法求权重</span></span><br><span class="line"><span class="comment">% 第一步：求出矩阵A的最大特征值以及其对应的特征向量</span></span><br><span class="line">clc</span><br><span class="line">[V,D] = eig(A)    <span class="comment">%V是特征向量, D是由特征值构成的对角矩阵（除了对角线元素外，其余位置元素全为0）</span></span><br><span class="line">Max_eig = <span class="built_in">max</span>(<span class="built_in">max</span>(D)) <span class="comment">%也可以写成max(D(:))哦~</span></span><br><span class="line"><span class="comment">% 那么怎么找到最大特征值所在的位置了？ 需要用到find函数，它可以用来返回向量或者矩阵中不为0的元素的位置索引。</span></span><br><span class="line"><span class="comment">% 那么问题来了，我们要得到最大特征值的位置，就需要将包含所有特征值的这个对角矩阵D中，不等于最大特征值的位置全变为0</span></span><br><span class="line"><span class="comment">% 这时候可以用到矩阵与常数的大小判断运算</span></span><br><span class="line">D == Max_eig</span><br><span class="line">[r,c] = <span class="built_in">find</span>(D == Max_eig , <span class="number">1</span>)</span><br><span class="line"><span class="comment">% 找到D中第一个与最大特征值相等的元素的位置，记录它的行和列。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 第二步：对求出的特征向量进行归一化即可得到我们的权重</span></span><br><span class="line">V(:,c)</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;特征值法求权重的结果为：&#x27;</span>);</span><br><span class="line"><span class="built_in">disp</span>( V(:,c) ./ sum(V(:,c)) )</span><br><span class="line"><span class="comment">% 我们先根据上面找到的最大特征值的列数c找到对应的特征向量，然后再进行标准化。</span></span><br></pre></td></tr></table></figure>
+<h2 id="计算一致性比例"><a class="markdownIt-Anchor" href="#计算一致性比例"></a> 计算一致性比例</h2>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 计算一致性比例CR</span></span><br><span class="line">clc</span><br><span class="line">CI = (Max_eig - n) / (n<span class="number">-1</span>);</span><br><span class="line">RI=[<span class="number">0</span> <span class="number">0</span> <span class="number">0.52</span> <span class="number">0.89</span> <span class="number">1.12</span> <span class="number">1.26</span> <span class="number">1.36</span> <span class="number">1.41</span> <span class="number">1.46</span> <span class="number">1.49</span> <span class="number">1.52</span> <span class="number">1.54</span> <span class="number">1.56</span> <span class="number">1.58</span> <span class="number">1.59</span>];  <span class="comment">%注意哦，这里的RI最多支持 n = 15</span></span><br><span class="line">CR=CI/RI(n);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;一致性指标CI=&#x27;</span>);<span class="built_in">disp</span>(CI);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;一致性比例CR=&#x27;</span>);<span class="built_in">disp</span>(CR);</span><br><span class="line"><span class="keyword">if</span> CR&lt;<span class="number">0.10</span></span><br><span class="line">    <span class="built_in">disp</span>(<span class="string">&#x27;因为CR &lt; 0.10，所以该判断矩阵A的一致性可以接受!&#x27;</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">disp</span>(<span class="string">&#x27;注意：CR &gt;= 0.10，因此该判断矩阵A需要进行修改!&#x27;</span>);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Young</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://k4se.top/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95%E7%9A%84Matlab%E5%AE%9E%E7%8E%B0/">https://k4se.top/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95%E7%9A%84Matlab%E5%AE%9E%E7%8E%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://k4se.top" target="_blank">K4semuffin</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MATLAB/">MATLAB</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">数学建模</a></div><div class="post_share"><div class="social-share" data-image="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95/" title="层次分析法"><img class="cover" src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/0f30dee4161712dce86bcc9affba7f70.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-05</div><div class="title">层次分析法</div></div></a></div><div><a href="/2022/09/05/matlab%E5%9F%BA%E7%A1%80/" title="MATLAB基础操作"><img class="cover" src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/358108182dc4d59d83a22c63aba0a038.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-05</div><div class="title">MATLAB基础操作</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img1.baidu.com/it/u=1960292808,1761809160&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=500" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Young</div><div class="author-info__description">保持单纯，保持热爱</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/vivalayan"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/vivalayan" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="Yan:969126064@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=969126064&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://s2.loli.net/2022/09/21/daAretTcCwofUL8.jpg" target="_blank" title="WeChat"><i class="fab fa-weixin"></i></a></div></div><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople1.js"></script><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/zdog.dist.js"></script><script id="rendered-js" src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople.js"></script><style>.card-widget.card-announcement {
+margin: 0;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+canvas {
+display: block;
+margin: 0 auto;
+cursor: move;
+}</style><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95%E7%9A%84matlab%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text"> 层次分析法的Matlab实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5"><span class="toc-number">1.1.</span> <span class="toc-text"> 输入判断矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E5%B9%B3%E5%9D%87%E6%B3%95%E6%B1%82%E6%9D%83%E9%87%8D"><span class="toc-number">1.2.</span> <span class="toc-text"> 算术平均法求权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E5%B9%B3%E5%9D%87%E6%B3%95%E6%B1%82%E6%9D%83%E9%87%8D"><span class="toc-number">1.3.</span> <span class="toc-text"> 几何平均法求权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%80%BC%E6%B3%95%E6%B1%82%E6%9D%83%E9%87%8D"><span class="toc-number">1.4.</span> <span class="toc-text"> 特征值法求权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E4%B8%80%E8%87%B4%E6%80%A7%E6%AF%94%E4%BE%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 计算一致性比例</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/05/TOPSIS%E6%B3%95/" title="TOPSIS法 - MATLAB - 数学建模"><img src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/8e52a8e1fdf8f5578f7abc6728154cbb.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TOPSIS法 - MATLAB - 数学建模"/></a><div class="content"><a class="title" href="/2022/09/05/TOPSIS%E6%B3%95/" title="TOPSIS法 - MATLAB - 数学建模">TOPSIS法 - MATLAB - 数学建模</a><time datetime="2022-09-05T12:32:19.000Z" title="发表于 2022-09-05 20:32:19">2022-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95/" title="层次分析法"><img src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/0f30dee4161712dce86bcc9affba7f70.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="层次分析法"/></a><div class="content"><a class="title" href="/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95/" title="层次分析法">层次分析法</a><time datetime="2022-09-05T12:32:19.000Z" title="发表于 2022-09-05 20:32:19">2022-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/05/%E6%8F%92%E5%80%BC%E7%AE%97%E6%B3%95/" title="插值算法 - MATLAB - 数学建模"><img src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/6bfa67aef1a28d75d9656ef014c92863.jpeg?x-oss-process=image%2fresize%2cm_lfit%2cw_3840%2ch_2160" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="插值算法 - MATLAB - 数学建模"/></a><div class="content"><a class="title" href="/2022/09/05/%E6%8F%92%E5%80%BC%E7%AE%97%E6%B3%95/" title="插值算法 - MATLAB - 数学建模">插值算法 - MATLAB - 数学建模</a><time datetime="2022-09-05T12:32:19.000Z" title="发表于 2022-09-05 20:32:19">2022-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/05/matlab%E5%9F%BA%E7%A1%80/" title="MATLAB基础操作"><img src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/358108182dc4d59d83a22c63aba0a038.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATLAB基础操作"/></a><div class="content"><a class="title" href="/2022/09/05/matlab%E5%9F%BA%E7%A1%80/" title="MATLAB基础操作">MATLAB基础操作</a><time datetime="2022-09-05T12:32:19.000Z" title="发表于 2022-09-05 20:32:19">2022-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95%E7%9A%84Matlab%E5%AE%9E%E7%8E%B0/" title="层次分析法的Matlab实现"><img src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="层次分析法的Matlab实现"/></a><div class="content"><a class="title" href="/2022/09/05/%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90%E6%B3%95%E7%9A%84Matlab%E5%AE%9E%E7%8E%B0/" title="层次分析法的Matlab实现">层次分析法的Matlab实现</a><time datetime="2022-09-05T12:32:19.000Z" title="发表于 2022-09-05 20:32:19">2022-09-05</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080')"><div id="footer-wrap"><div class="copyright">&copy;2022  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Young</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/HCLonely/images@master/others/heartbeat.min.css"></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://fastly.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script src="https://fastly.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://fastly.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="k,4,s,e" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://fastly.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://k4se.top/categories/数学建模/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">📚 数学建模 (5)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="https://k4se.top/categories" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(50% - 5px);background: #f2f2f2;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: #b30070}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://img2.baidu.com/it/u=698779215,2353186771&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=PNG?w=953&amp;h=469);"> <a class="categoryBar-list-link" href="categories/数学建模/">数学建模</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr">数学建模</span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script data-pjax>
+  function butterfly_clock_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="https://npm.elemecdn.com/hexo-butterfly-clock/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_injector_config();
+  }
+  </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax src="https://npm.elemecdn.com/hexo-butterfly-clock/lib/clock.min.js"></script><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/09/05/插值算法/" alt=""><img width="48" height="48" src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/6bfa67aef1a28d75d9656ef014c92863.jpeg?x-oss-process=image%2fresize%2cm_lfit%2cw_3840%2ch_2160" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-09-05</span><a class="blog-slider__title" href="2022/09/05/插值算法/" alt="">插值算法 - MATLAB - 数学建模</a><div class="blog-slider__text">由于层次分析法与TOPSIS法均有自身的特有局限性，插值算法应运而生，本文着重介绍了插值算法的理论部分。</div><a class="blog-slider__button" href="2022/09/05/插值算法/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/09/05/TOPSIS法/" alt=""><img width="48" height="48" src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/8e52a8e1fdf8f5578f7abc6728154cbb.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-09-05</span><a class="blog-slider__title" href="2022/09/05/TOPSIS法/" alt="">TOPSIS法 - MATLAB - 数学建模</a><div class="blog-slider__text">利用Matlab对该模型进行了算法上的实现</div><a class="blog-slider__button" href="2022/09/05/TOPSIS法/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/09/05/层次分析法的Matlab实现/" alt=""><img width="48" height="48" src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b729854282ab9b5bc6c578042614ac3.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-09-05</span><a class="blog-slider__title" href="2022/09/05/层次分析法的Matlab实现/" alt="">层次分析法的Matlab实现</a><div class="blog-slider__text">利用Matlab对该模型进行了算法上的实现</div><a class="blog-slider__button" href="2022/09/05/层次分析法的Matlab实现/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/09/05/层次分析法/" alt=""><img width="48" height="48" src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/0f30dee4161712dce86bcc9affba7f70.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-09-05</span><a class="blog-slider__title" href="2022/09/05/层次分析法/" alt="">层次分析法</a><div class="blog-slider__text">对一种常见的问题分析评价体系进行了原理上的分析和论述。</div><a class="blog-slider__button" href="2022/09/05/层次分析法/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/09/05/matlab基础/" alt=""><img width="48" height="48" src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/358108182dc4d59d83a22c63aba0a038.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-09-05</span><a class="blog-slider__title" href="2022/09/05/matlab基础/" alt="">MATLAB基础操作</a><div class="blog-slider__text">对一些matlab常用的基础操作做了简单的介绍，含有代码示例。</div><a class="blog-slider__button" href="2022/09/05/matlab基础/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v3.8.2" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" data-title="本站采用双线部署，默认线路托管于Vercel" title=""><img src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&amp;logo=Vercel" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" data-title="本站采用双线部署，联通线路托管于Coding" title=""><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&amp;logo=Codio" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
